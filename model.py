@@ -123,4 +123,5 @@ class NN_Classfier(object):
     def load_model(self, filepath: str):
         with open(filepath,"rb") as f:
             self.parameters = pickle.load(f)
+        return self
         

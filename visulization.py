@@ -2,7 +2,7 @@ import seaborn as sns
 import pandas as pd
 import os
 import matplotlib.pyplot as plt
-
+from model import NN_Classfier
 
 
 from sklearn.metrics import accuracy_score
@@ -47,8 +47,26 @@ def show_train_history():
     sns.lineplot(data = accuracy_df)
     plt.savefig("accuracy.png")
 
+def show_parameter(filepath):
+    m = NN_Classfier(hidden_size=300,input_dim=784,output_dim=64).load_model(filepath)
+    W_0 = m.parameters[0]
+    W_1 = m.parameters[1]
+    W_0 = pd.DataFrame(W_0)
+    plt.figure()
+    plt.title("Heatmap of W0")
+    sns.heatmap(data = W_0)
+    plt.savefig("W0.png")
+
+    plt.figure()
+    plt.title("Heatmap of W1")
+    sns.heatmap(data = W_1)
+    plt.savefig("W1.png")
+
+
+
+
 if __name__ == "__main__":
     show_train_history()
-
+    show_parameter("models/Model_300_0.1000_0.0000_best.m")
 
     
